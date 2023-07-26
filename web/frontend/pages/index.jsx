@@ -32,7 +32,7 @@ export default function HomePage() {
               <Stack.Item fill>
                 <TextContainer spacing="loose">
                   <Text as="h2" variant="headingMd">
-                    Welcome to Simple Finance App by Askara Media
+                    Welcome to Simple Finance App by Askara Solutions
                   </Text>
                   <p>
                     <Trans

@@ -34,6 +34,7 @@ export default function HomePage() {
                   <Text as="h2" variant="headingMd">
                     Welcome to Simple Finance App by Ahyas Widyatmaka
                   </Text>
+                  <p>Im so exited to build this great project</p>
                   <p>
                     <Trans
                       i18nKey="HomePage.yourAppIsReadyToExplore"

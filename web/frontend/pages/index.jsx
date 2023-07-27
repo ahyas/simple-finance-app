@@ -32,9 +32,9 @@ export default function HomePage() {
               <Stack.Item fill>
                 <TextContainer spacing="loose">
                   <Text as="h2" variant="headingMd">
-                    Welcome to Simple Finance App by Ahyas Widyatmaka
+                    Welcome to Simple Finance App by Askara Media
                   </Text>
-                  <p>Im so exited to build this great project</p>
+                  <p>Lets explore the power of eCommerce</p>
                   <p>
                     <Trans
                       i18nKey="HomePage.yourAppIsReadyToExplore"

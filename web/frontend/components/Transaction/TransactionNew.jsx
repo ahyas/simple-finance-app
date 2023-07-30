@@ -1,58 +1,22 @@
-import { LegacyCard, Page, Layout, Form, FormLayout, TextField, Button, Select, DatePicker } from "@shopify/polaris";
+import { LegacyCard, Page, Layout, Form, FormLayout, TextField, Button, Checkbox, } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
-import {useForm, useField} from "@shopify/react-form";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
  
 export function TransactionNew(){
-    const {
-        fields:{
-            category,
-            sub_category,
-            date,
-            value, 
-            information
-        },
-        submit
-    } = useForm({
-        fields: {
-            category: useField({
-                value:0,
-                validates: (category)=>{
-                    if(category === 0){
-                        return "Choose category";
-                    }
-                }
-            }),
-            sub_category: useField({
-                value:0,
-                validates:(sub_category)=>{
-                    if(sub_category === 0){
-                        return "Choose sub category";
-                    }
-                }
-            }),
-            date: useField({
-                value:"",
-                validates:(date)=>{
-                    if(date === ""){
-                        return "Insert relevant date";
-                    }
-                }
-            }),
-            value: useField({
-                value:0,
-                validates:(value)=>{
-                    if(value === 0){
-                        return "Insert value";
-                    }
-                }
-            })
-        },
-        onSubmit: useCallback(
-            (form)=>{
-                console.log(form);    
-            },[])
-    });
+    const [newsletter, setNewsletter] = useState(false);
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = useCallback(() => {
+    setEmail('');
+    setNewsletter(false);
+  }, []);
+
+  const handleNewsLetterChange = useCallback(
+    (value) => setNewsletter(value),
+    [],
+  );
+
+  const handleEmailChange = useCallback((value) => setEmail(value), []);
 
     return(
         <Page 
@@ -68,38 +32,31 @@ export function TransactionNew(){
             <Layout>
                 <Layout.Section>
                 <LegacyCard sectioned>
-                <Form>
-                    <FormLayout>  
-                        <TextField 
-                            label="Category" 
-                            onChange={() => {}} 
-                            autoComplete="off" 
-                        />
-                        <TextField
-                            label="Sub category"
-                            onChange={() => {}}
-                            autoComplete="off"
-                        />
-                        <TextField
-                            label="Date"
-                            onChange={() => {}}
-                            autoComplete="off"
-                        />
-                        <TextField
-                            type="number"
-                            label="Value"
-                            onChange={() => {}}
-                            autoComplete="off"
-                            min={0}
-                        />
-                        <TextField
-                            label="Information"
-                            onChange={() => {}}
-                            autoComplete="off"
-                        />
-                        <Button onClick={submit} primary fullWidth>Save</Button>
-                    </FormLayout>
-                    </Form>
+                <Form onSubmit={handleSubmit}>
+      <FormLayout>
+        <Checkbox
+          label="Sign up for the Polaris newsletter"
+          checked={newsletter}
+          onChange={handleNewsLetterChange}
+        />
+
+        <TextField
+          value={email}
+          onChange={handleEmailChange}
+          label="Email"
+          type="email"
+          autoComplete="email"
+          helpText={
+            <span>
+              We’ll use this email address to inform you on future changes to
+              Polaris.
+            </span>
+          }
+        />
+
+        <Button submit>Submit</Button>
+      </FormLayout>
+    </Form>
                 </LegacyCard>
                 </Layout.Section>
             </Layout>

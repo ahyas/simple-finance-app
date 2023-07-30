@@ -11,6 +11,9 @@ import GDPRWebhookHandlers from "./gdpr.js";
 //import {readOrder} from "./models/Orders.js";
 import {readProducts} from "./models/Products.js";
 
+import connectDB from "./connect_db.js";
+import "dotenv/config.js";
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10
@@ -79,4 +82,7 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
 
-app.listen(PORT);
+app.listen(PORT, ()=>{
+  console.log(`Server running on port ${PORT}`);
+  connectDB(process.env.URI);
+});

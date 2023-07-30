@@ -14,6 +14,7 @@ import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
  *
  * @return {Routes} `<Routes/>` from React Router, with a `<Route/>` for each file in `pages`
  */
+import {TransactionNew} from "./components";
 export default function Routes({ pages }) {
   const routes = useRoutes(pages);
   const routeComponents = routes.map(({ path, component: Component }) => (
@@ -25,6 +26,7 @@ export default function Routes({ pages }) {
   return (
     <ReactRouterRoutes>
       {routeComponents}
+      <Route path="/transaction/add" element={<TransactionNew/>} />
       <Route path="*" element={<NotFound />} />
     </ReactRouterRoutes>
   );

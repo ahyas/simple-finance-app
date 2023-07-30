@@ -8,6 +8,9 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 
+//import {readOrder} from "./models/Orders.js";
+import {readProducts} from "./models/Products.js";
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10
@@ -43,6 +46,8 @@ app.get("/api/products/count", async (_req, res) => {
   const countData = await shopify.api.rest.Product.count({
     session: res.locals.shopify.session,
   });
+  
+  console.log("Total product: ",countData);
   res.status(200).send(countData);
 });
 
@@ -62,6 +67,10 @@ app.get("/api/products/create", async (_req, res) => {
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
+
+//===========WORKING API=============
+//app.get("/api/get_order", readOrder);
+app.get("/api/products", readProducts);
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   return res

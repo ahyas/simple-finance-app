@@ -1,65 +1,55 @@
-import { LegacyCard, Page, Layout, Form, FormLayout, TextField, Button, Checkbox, } from "@shopify/polaris";
+import { LegacyCard, Page, Tabs, } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
-import { useState, useCallback } from "react";
- 
+import { useState, useCallback} from "react";
+import ExpenseForm from "./ExpenseForm";
+import IncomeForm from "./IncomeForm";
+
 export function TransactionNew(){
-    const [newsletter, setNewsletter] = useState(false);
-  const [email, setEmail] = useState('');
+  const [category, setCategory] = useState(0);
 
-  const handleSubmit = useCallback(() => {
-    setEmail('');
-    setNewsletter(false);
-  }, []);
-
-  const handleNewsLetterChange = useCallback(
-    (value) => setNewsletter(value),
+  const handleTabChange = useCallback(
+    (selectedCategory) => setCategory(selectedCategory),
     [],
   );
 
-  const handleEmailChange = useCallback((value) => setEmail(value), []);
+  const tabs = [
+    {
+      id: 'all-customers-fitted-2',
+      content: 'Income',
+      panelID: 'all-customers-fitted-content-2',
+    },
+    {
+      id: 'accepts-marketing-fitted-2',
+      content: 'Expense',
+      panelID: 'accepts-marketing-fitted-Ccontent-2',
+    },
+  ];
+
+  const switchView = (category) => {
+    if(category===0){
+      return <IncomeForm category={category} />
+    }else{
+      return <ExpenseForm category={category} />
+    }
+  }
 
     return(
         <Page 
-            backAction={
-                {
-                    content: 'Products', 
-                    onAction:()=>history.go(-1)
-                }
-            } 
-            title="Add new transaction" 
-            narrowWidth>
+          backAction={
+              { 
+                  onAction:()=>history.go(-1)
+              }
+          } 
+          title="Add new transaction" 
+          subtitle="Choose one of transaction category below"
+          narrowWidth
+        >
             <TitleBar title="Simple finance app"/>
-            <Layout>
-                <Layout.Section>
-                <LegacyCard sectioned>
-                <Form onSubmit={handleSubmit}>
-                  <FormLayout>
-                    <Checkbox
-                      label="Sign up for the Polaris newsletter"
-                      checked={newsletter}
-                      onChange={handleNewsLetterChange}
-                    />
-
-                    <TextField
-                      value={email}
-                      onChange={handleEmailChange}
-                      label="Email"
-                      type="email"
-                      autoComplete="email"
-                      helpText={
-                        <span>
-                          We’ll use this email address to inform you on future changes to
-                          Polaris.
-                        </span>
-                      }
-                    />
-
-                    <Button submit>Submit</Button>
-                  </FormLayout>
-                </Form>
-                </LegacyCard>
-                </Layout.Section>
-            </Layout>
+            <LegacyCard>
+                <Tabs tabs={tabs} selected={category} onSelect={handleTabChange} fitted>
+                    {switchView(category)}
+                </Tabs>
+            </LegacyCard>          
         </Page>
     )
 }

@@ -5,7 +5,7 @@ const readProducts = async (req, res) => {
         const products = await shopify.api.rest.Product.all({
             session:res.locals.shopify.session
         });
-        res.json({products:products});
+        res.json({product:products});
     } catch (error) {
         res.json(error);
     }

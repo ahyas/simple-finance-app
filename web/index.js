@@ -8,9 +8,14 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 
+//Import Controller
+import { transaction_show, transaction_save } from "./controllers/transaction.js";
+import { sub_category_show } from "./controllers/sub_category.js";
+
 //import {readOrder} from "./models/Orders.js";
 import {readProducts} from "./models/Products.js";
 
+//import database connection string
 import connectDB from "./connect_db.js";
 import "dotenv/config.js";
 
@@ -68,12 +73,15 @@ app.get("/api/products/create", async (_req, res) => {
   res.status(status).send({ success: status === 200, error });
 });
 
-app.use(shopify.cspHeaders());
-app.use(serveStatic(STATIC_PATH, { index: false }));
-
-//===========WORKING API=============
+//===========WORKING API============= 
 //app.get("/api/get_order", readOrder);
 app.get("/api/products", readProducts);
+app.get("/api/v1/category", transaction_show); 
+app.get("/api/v1/sub_category/:category/show", sub_category_show);
+app.post("/api/v1/transaction/expense/save", transaction_save);
+
+app.use(shopify.cspHeaders());
+app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   return res
@@ -84,5 +92,5 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
 
 app.listen(PORT, ()=>{
   console.log(`Server running on port ${PORT}`);
-  connectDB(process.env.URI);
+  connectDB(process.env.URI); 
 });

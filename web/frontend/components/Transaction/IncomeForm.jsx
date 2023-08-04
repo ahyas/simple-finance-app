@@ -1,8 +1,10 @@
 import { Form, FormLayout, Select, TextField, Button, LegacyCard } from "@shopify/polaris";
 import { useState } from "react";
 import { useAppQuery } from "../../hooks";
+import { useNavigate } from "@shopify/app-bridge-react";
 
 export default function IncomeForm({category}){
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         id_category:category,
         id_sub_category:0,
@@ -30,7 +32,7 @@ export default function IncomeForm({category}){
         <LegacyCard.Section actions={[
             {
                 content: "New income category",
-                onAction:()=> navigate("")
+                onAction:()=> navigate(`/sub_category/income/${category}/list`)
             }
         ]}>
         <Form>

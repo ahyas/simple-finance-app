@@ -36,10 +36,10 @@ export function TransactionNew(){
     return(
         <Page 
           backAction={
-              { 
-                  onAction:()=>history.go(-1)
-              }
-          } 
+            { 
+                onAction:()=>history.go(-1)
+            }
+          }
           title="Add new transaction" 
           subtitle="Choose one of transaction category below"
           narrowWidth

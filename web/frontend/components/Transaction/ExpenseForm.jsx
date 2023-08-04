@@ -50,13 +50,13 @@ export default function ExpenseForm({category}){
             <LegacyCard.Section actions={[
                 {
                     content: "New expense category",
-                    onAction:()=> navigate("")
+                    onAction:()=> navigate(`/sub_category/expense/${category}/list`)
                 }
             ]}>
                 <Form onSubmit={()=>handleSubmit()}>
                     <FormLayout>
                     <Select 
-                        label="Expense"
+                        label="Expense category"
                         options={get_sub_category}
                         onChange={(e)=>handleChange({id_sub_category:e})}
                         value={form.id_sub_category}

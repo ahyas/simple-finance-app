@@ -4,7 +4,7 @@ import { IncomeSubCategoryList } from "../components";
 import { useAppQuery } from "../hooks";
 import { useParams } from "react-router-dom";
 
-export function IncomeSubCategoryIndex(){
+export default function IncomeSubCategoryIndex(){
     const navigate = useNavigate();
     const {category} = useParams();
     

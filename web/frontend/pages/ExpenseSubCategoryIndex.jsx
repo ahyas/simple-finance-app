@@ -1,10 +1,10 @@
 import { TitleBar, Loading, useNavigate } from "@shopify/app-bridge-react";
-import { LegacyCard, Page, Layout, SkeletonBodyText } from "@shopify/polaris";
+import { LegacyCard, Page, Layout, SkeletonBodyText, DatePicker } from "@shopify/polaris";
 import { useParams } from "react-router-dom";
 import { useAppQuery } from "../hooks";
 import { ExpenseSubCategoryList } from "../components";
 
-export function ExpenseSubCategoryIndex(){
+export default function ExpenseSubCategoryIndex(){
     const {category} = useParams();
     const navigate = useNavigate();
     const {data:sub_category, isLoading, isRefetching} = useAppQuery({

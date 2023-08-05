@@ -76,7 +76,7 @@ app.get("/api/products/create", async (_req, res) => {
 //===========WORKING API============= 
 //app.get("/api/get_order", readOrder);
 app.get("/api/products", readProducts);
-app.get("/api/v1/category", transaction_show); 
+app.get("/api/v1/transaction", transaction_show); 
 app.get("/api/v1/sub_category/:category/show", sub_category_show);
 app.post("/api/v1/transaction/expense/save", transaction_save);
 

@@ -1,30 +1,56 @@
-import { Form, FormLayout, TextField, Button, Select, LegacyCard} from "@shopify/polaris";
+import { Form, FormLayout, TextField, Button, Select, LegacyCard, DatePicker} from "@shopify/polaris";
 import { useAuthenticatedFetch, useNavigate } from "@shopify/app-bridge-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useAppQuery } from "../../hooks";
 
 export default function ExpenseForm({category}){
-    const fetch = useAuthenticatedFetch();
-    const navigate = useNavigate();
+    let today = new Date();
+    let startMonth = today.getMonth();
+    let startYear = today.getFullYear();
+    const [{month, year}, setDate] = useState({month: startMonth, year: startYear});
+    const [selectedDates, setSelectedDates] = useState({start: new Date(), end: new Date()});
+    
+    let date = new Date(selectedDates.start);
+    let years = date.getFullYear();
+    let months = date.getMonth()+1;
+    let day = date.getDate();
+
+    let newDate = years+"-"+months +"-"+day;
+    
+    const handleMonthChange = useCallback(
+      (month, year) => setDate({month, year}),
+      [],
+    );
+
     const [form, setForm] = useState({
         id_category:category,
         id_sub_category:0,
-        date:"",
+        date:newDate,
         amount:0,
         information:""
     });
 
+    const fetch = useAuthenticatedFetch();
+    const navigate = useNavigate();
+
     const handleChange = (curr) => {
         return setForm((prev)=>{
-        return {...prev,...curr}
+            return {...prev,...curr}
         });
     }
 
     const handleSubmit = async () => {
-        await fetch("/api/v1/transaction/expense/save", {method:"POST", body:JSON.stringify(form), headers:{"Content-type":"application/json"}}).then((response)=>{
+        let formData = {
+            amount:form.amount,
+            date:newDate,
+            id_category:form.id_category,
+            id_sub_category:form.id_sub_category,
+            information:form.information
+
+        }
+        await fetch("/api/v1/transaction/expense/save", {method:"POST", body:JSON.stringify(formData), headers:{"Content-type":"application/json"}}).then((response)=>{
             return response.json();            
         }).then((data)=>{
-            console.log(data)
             return navigate("/transaction");
         });
         
@@ -44,7 +70,7 @@ export default function ExpenseForm({category}){
             }
             return list;
         })
-    ] : []
+    ] : [];
 
     return(
             <LegacyCard.Section actions={[
@@ -62,18 +88,25 @@ export default function ExpenseForm({category}){
                         value={form.id_sub_category}
                     />
 
-                    <TextField
-                        label="Date"
-                        value={form.date}
-                        onChange={(e)=>handleChange({date:e})}
+                    <DatePicker
+                        month={month}
+                        year={year}
+                        onChange={setSelectedDates}
+                        onMonthChange={handleMonthChange}
+                        selected={selectedDates}
                     />
+
+                    {/* <TextField 
+                        label="Date"
+                        value={newDate}
+                        readOnly
+                    /> */}
 
                     <TextField
                         label="Amount"
                         type="number"
                         value={form.amount}
                         onChange={(e)=>handleChange({amount:e})}
-                        autoComplete="off"
                     />
 
                     <TextField 

@@ -42,7 +42,18 @@ const transaction_show = async (req, res) => {
             
         ]);
 
-        res.json({data:data});        
+        const total_income = await table.aggregate([
+            { $match : { id_category : "0" } },
+            { $group: {_id:null, sum_val:{$sum:"$amount"}}}
+        ]);
+
+        const total_expense = await table.aggregate([
+            { $match : { id_category : "1" } },
+            { $group: {_id:null, sum_val:{$sum:"$amount"}}}
+        ]);
+        
+        console.log(total_expense)
+        res.json({data:data, total_income:total_income[0].sum_val, total_expense:total_expense[0].sum_val});        
     } catch (error) {
         res.json(error); 
     } 

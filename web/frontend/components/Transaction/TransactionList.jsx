@@ -5,7 +5,7 @@ export function TransactionList({transaction, loading}){
         return(
           <>
             <IndexTable.Cell>
-              - 
+               
             </IndexTable.Cell>
             <IndexTable.Cell>
               <Text color="critical">{amount}</Text>
@@ -19,7 +19,7 @@ export function TransactionList({transaction, loading}){
               <Text color="success">{amount}</Text> 
             </IndexTable.Cell>
             <IndexTable.Cell>
-            -
+            
             </IndexTable.Cell>
           </>
         )
@@ -71,8 +71,8 @@ export function TransactionList({transaction, loading}){
                 <IndexTable.Cell><b>Total</b></IndexTable.Cell>
                 <IndexTable.Cell></IndexTable.Cell>
                 <IndexTable.Cell></IndexTable.Cell>
-                <IndexTable.Cell></IndexTable.Cell>
-                <IndexTable.Cell></IndexTable.Cell>
+                <IndexTable.Cell><Text fontWeight="bold" color="success">{transaction.total_income}</Text></IndexTable.Cell>
+                <IndexTable.Cell><Text fontWeight="bold" color="critical">{transaction.total_expense}</Text></IndexTable.Cell>
               </IndexTable.Row>
               {rowMarkup}
             </IndexTable>

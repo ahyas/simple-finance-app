@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAppQuery } from "../hooks";
 import { ExpenseSubCategoryList } from "../components";
 
-export default function ExpenseSubCategoryIndex(){
+export function ExpenseSubCategoryIndex(){
     const {category} = useParams();
     const navigate = useNavigate();
     const {data:sub_category, isLoading, isRefetching} = useAppQuery({

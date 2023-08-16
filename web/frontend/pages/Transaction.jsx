@@ -1,6 +1,6 @@
 import { LegacyCard, Page, Layout, SkeletonBodyText } from "@shopify/polaris";
-import { TitleBar, useNavigate, Loading } from "@shopify/app-bridge-react";
-import { TransactionList } from "../components";
+import { useNavigate, Loading } from "@shopify/app-bridge-react";
+import { TransactionList, AppName } from "../components";
 import { useAppQuery } from "../hooks";
 
 export default function Transaction() {
@@ -10,7 +10,7 @@ export default function Transaction() {
   )
 
   const loadingMarkup = isLoading ? (
-      <LegacyCard>
+      <LegacyCard sectioned>
         <Loading />
         <SkeletonBodyText/>
       </LegacyCard>
@@ -20,6 +20,7 @@ export default function Transaction() {
       <TransactionList transaction={transaction} loading={isRefetching} />
   ) : null;
 
+
   return (
     <Page 
       narrowWidth 
@@ -28,8 +29,9 @@ export default function Transaction() {
         onAction: () => Navigate("/transaction/add")
       }}
       title="Transaction list"
+      subtitle="All of your transaction activity"
     >
-      <TitleBar title="Simple finance app"/>
+      <AppName/>
       <Layout>
         <Layout.Section>
           <LegacyCard sectioned >

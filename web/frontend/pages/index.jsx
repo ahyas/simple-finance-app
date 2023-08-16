@@ -2,12 +2,28 @@ import {
   LegacyCard,
   Page,
   Layout,
-  LegacyStack
+  SkeletonBodyText
 } from "@shopify/polaris";
-import { TitleBar, useNavigate } from "@shopify/app-bridge-react";
+import { useNavigate, Loading } from "@shopify/app-bridge-react";
+import { FinancialReport, AppName } from "../components";
+import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
   const Navigate = useNavigate();
+  const {data:transaction, isLoading} = useAppQuery({
+    url:`/api/v1/transaction`
+  });
+
+  const loadingMarkup = isLoading ? (
+    <LegacyCard sectioned>
+      <Loading />
+      <SkeletonBodyText/>
+    </LegacyCard>
+  ):null;
+
+  const dataMarkup = (transaction?.total_income && transaction?.total_expense) ? (
+    <FinancialReport total_income={transaction.total_income} total_expense={transaction.total_expense} />
+  ) : null;
 
   return (
     <Page 
@@ -18,49 +34,14 @@ export default function HomePage() {
       }}
       title="Financial report"
     >
-      <TitleBar title="Simple finance app" />
+      <AppName/>
       <Layout>
         <Layout.Section>
-          <LegacyCard sectioned>
-            <LegacyStack>
-              <LegacyStack.Item fill>
-                <p>Your Revenue</p>
-              </LegacyStack.Item>
-              <LegacyStack.Item>
-                <p>Rp 0 </p>
-              </LegacyStack.Item>
-            </LegacyStack>
-            
-            <LegacyStack>
-              <LegacyStack.Item fill>
-                <p>Your Side Income</p>
-              </LegacyStack.Item>
-              <LegacyStack.Item>
-                <p>Rp 0 </p>
-              </LegacyStack.Item>
-            </LegacyStack>
-            
-            <LegacyStack>
-              <LegacyStack.Item fill>
-                <p>Your Expense</p>
-              </LegacyStack.Item>
-              <LegacyStack.Item>
-                <p>Rp 0 </p>
-              </LegacyStack.Item>
-            </LegacyStack>
-            <hr></hr>
-            <LegacyStack>
-              <LegacyStack.Item fill>
-                <p><b>Your Profit</b></p>
-              </LegacyStack.Item>
-              <LegacyStack.Item>
-                <p><b>Rp 0 </b></p>
-              </LegacyStack.Item>
-            </LegacyStack>
-            <br></br>            
-          </LegacyCard>
+         
+          {loadingMarkup}
+          {dataMarkup}
+         
         </Layout.Section>
-        
       </Layout>
     </Page>
   );

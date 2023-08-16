@@ -14,9 +14,11 @@ import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
  *
  * @return {Routes} `<Routes/>` from React Router, with a `<Route/>` for each file in `pages`
  */
-import {TransactionNew} from "./components";
+import { TransactionNew } from "./components";
 import { ExpenseSubCategoryIndex } from "./pages/ExpenseSubCategoryIndex";
 import { IncomeSubCategoryIndex } from "./pages/IncomeSubCategoryIndex";
+import { ExpenseSubCategoryAdd } from "./pages/ExpenseSubCategoryAdd"; 
+import { ExpenseSubCategoryEdit } from "./pages/ExpenseSubCategoryEdit";
 
 export default function Routes({ pages }) {
   const routes = useRoutes(pages);
@@ -31,6 +33,8 @@ export default function Routes({ pages }) {
       {routeComponents}
       <Route path="/transaction/add" element={<TransactionNew/>} />
       <Route path="/sub_category/expense/:category/list" element={<ExpenseSubCategoryIndex/>} />
+      <Route path="/sub_category/expense/:category/add" element={<ExpenseSubCategoryAdd/>} />
+      <Route path="/sub_category/expense/:sub_category/edit" element={<ExpenseSubCategoryEdit/>} />
       <Route path="/sub_category/income/:category/list" element={<IncomeSubCategoryIndex/>} />
       <Route path="*" element={<NotFound />} />
     </ReactRouterRoutes>

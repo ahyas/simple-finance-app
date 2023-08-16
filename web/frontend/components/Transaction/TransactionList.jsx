@@ -27,6 +27,7 @@ export function TransactionList({transaction, loading}){
     }
 
     const rowMarkup = transaction.data.map(({_id, category, sub_category, date, amount, information}, index)=>{
+      
       return(
         <IndexTable.Row
             id={_id}
@@ -36,7 +37,7 @@ export function TransactionList({transaction, loading}){
             <IndexTable.Cell>
                 <Link
                     removeUnderline
-                    url="#"
+                    url=""
                 >
                     {information}
                 </Link>
@@ -52,7 +53,8 @@ export function TransactionList({transaction, loading}){
             
         </IndexTable.Row>
       )
-    })
+    });
+
     return(
         <>
             <IndexTable
@@ -77,5 +79,5 @@ export function TransactionList({transaction, loading}){
               {rowMarkup}
             </IndexTable>
         </>
-    )
+    );
 }

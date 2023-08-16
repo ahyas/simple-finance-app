@@ -1,7 +1,8 @@
 import { IndexTable, Link } from "@shopify/polaris";
+import { useNavigate } from "react-router-dom";
 
 export function ExpenseSubCategoryList({sub_category, loading}){
-    console.log(sub_category)
+    const navigate = useNavigate();
     const rowMarkup = sub_category.map(({_id, name},index) => {
         return(
             <IndexTable.Row 
@@ -12,7 +13,7 @@ export function ExpenseSubCategoryList({sub_category, loading}){
                 <IndexTable.Cell>
                     <Link
                         removeUnderline
-                        url="#"
+                        url={`/sub_category/expense/${_id}/edit`}
                     >
                         {name}
                     </Link>

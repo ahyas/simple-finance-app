@@ -1,8 +1,8 @@
 import { LegacyCard, Page, Tabs, } from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
 import { useState, useCallback} from "react";
 import ExpenseForm from "./ExpenseForm";
 import IncomeForm from "./IncomeForm";
+import {AppName} from "../AppName";
 
 export function TransactionNew(){
   const [category, setCategory] = useState(0);
@@ -44,7 +44,7 @@ export function TransactionNew(){
           subtitle="Choose one of transaction category below"
           narrowWidth
         >
-            <TitleBar title="Simple finance app"/>
+            <AppName/>
             <LegacyCard>
                 <Tabs tabs={tabs} selected={category} onSelect={handleTabChange} fitted>
                     {switchView(category)}

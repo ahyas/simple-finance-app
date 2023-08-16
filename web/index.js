@@ -10,7 +10,7 @@ import GDPRWebhookHandlers from "./gdpr.js";
 
 //Import Controller
 import { transaction_show, transaction_save } from "./controllers/transaction.js";
-import { sub_category_show } from "./controllers/sub_category.js";
+import { sub_category_show, sub_category_save, sub_category_edit, sub_categoey_update } from "./controllers/sub_category.js";
 
 //import {readOrder} from "./models/Orders.js";
 import {readProducts} from "./models/Products.js";
@@ -78,6 +78,9 @@ app.get("/api/products/create", async (_req, res) => {
 app.get("/api/products", readProducts);
 app.get("/api/v1/transaction", transaction_show); 
 app.get("/api/v1/sub_category/:category/show", sub_category_show);
+app.post("/api/v1/sub_category/:category/save", sub_category_save);
+app.get("/api/v1/sub_category/:sub_category/edit", sub_category_edit);
+app.patch("/api/v1/sub_category/:sub_category/update", sub_categoey_update)
 app.post("/api/v1/transaction/expense/save", transaction_save);
 
 app.use(shopify.cspHeaders());

@@ -1,6 +1,6 @@
-import { TitleBar, useNavigate, Loading } from "@shopify/app-bridge-react";
+import { useNavigate, Loading } from "@shopify/app-bridge-react";
 import { Page, Layout, LegacyCard, SkeletonBodyText } from "@shopify/polaris";
-import { IncomeSubCategoryList } from "../components";
+import { IncomeSubCategoryList, AppName } from "../components";
 import { useAppQuery } from "../hooks";
 import { useParams } from "react-router-dom";
 
@@ -11,6 +11,8 @@ export function IncomeSubCategoryIndex(){
     const {data:sub_category, isLoading, isRefetching} = useAppQuery({
         url:`/api/v1/sub_category/${category}/show`
     });
+
+    
 
     const loadingMarkup = isLoading ? (
         <LegacyCard>
@@ -38,7 +40,7 @@ export function IncomeSubCategoryIndex(){
                 }
                 title="Income category"
             >
-                <TitleBar title="Simple finance app"/>
+                <AppName/>
                 <Layout>
                     <Layout.Section>
                         <LegacyCard sectioned >

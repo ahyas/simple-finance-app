@@ -1,8 +1,8 @@
-import { TitleBar, Loading, useNavigate } from "@shopify/app-bridge-react";
+import { Loading, useNavigate } from "@shopify/app-bridge-react";
 import { LegacyCard, Page, Layout, SkeletonBodyText, DatePicker } from "@shopify/polaris";
 import { useParams } from "react-router-dom";
 import { useAppQuery } from "../hooks";
-import { ExpenseSubCategoryList } from "../components";
+import { ExpenseSubCategoryList, AppName } from "../components";
 
 export function ExpenseSubCategoryIndex(){
     const {category} = useParams();
@@ -12,7 +12,7 @@ export function ExpenseSubCategoryIndex(){
     });
     
     const loadingMarkup = isLoading ? (
-        <LegacyCard>
+        <LegacyCard sectioned>
             <Loading />
             <SkeletonBodyText/>
         </LegacyCard>
@@ -28,16 +28,16 @@ export function ExpenseSubCategoryIndex(){
                 narrowWidth 
                 primaryAction={{
                     content:"Add new",
-                    onAction: () => navigate("")
+                    onAction: () => navigate(`/sub_category/expense/${category}/add`)
                 }}
                 backAction={
                     {
-                        onAction:()=>history.go(-1)
+                        onAction:()=>navigate(`/transaction/add`)
                     }
                 }
                 title="Expense category"
             >
-            <TitleBar title="Simple finance app"/>
+            <AppName/>
             <Layout>
                 <Layout.Section>
                     <LegacyCard sectioned >

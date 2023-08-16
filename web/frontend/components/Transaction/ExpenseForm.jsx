@@ -1,4 +1,4 @@
-import { Form, FormLayout, TextField, Button, Select, LegacyCard, DatePicker} from "@shopify/polaris";
+import { Form, FormLayout, TextField, Button, Select, LegacyCard, DatePicker, Text} from "@shopify/polaris";
 import { useAuthenticatedFetch, useNavigate } from "@shopify/app-bridge-react";
 import { useState, useCallback } from "react";
 import { useAppQuery } from "../../hooks";
@@ -87,7 +87,7 @@ export default function ExpenseForm({category}){
                         onChange={(e)=>handleChange({id_sub_category:e})}
                         value={form.id_sub_category}
                     />
-
+                    <Text>Date</Text>
                     <DatePicker
                         month={month}
                         year={year}
@@ -95,12 +95,6 @@ export default function ExpenseForm({category}){
                         onMonthChange={handleMonthChange}
                         selected={selectedDates}
                     />
-
-                    {/* <TextField 
-                        label="Date"
-                        value={newDate}
-                        readOnly
-                    /> */}
 
                     <TextField
                         label="Amount"
